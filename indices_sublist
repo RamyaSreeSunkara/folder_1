@@ -1,0 +1,33 @@
+##indices sublist pointing to same person and indices sublist without any common person
+##same/common person refers to same name/same phne_num/same email
+
+data=[("username1","phone_number1","email1"),
+      ("usernameX","phone_number1","emailX"),
+      ("usernameZ","phone_numberZ","email1Z"),
+      ( "usernameY","phone_numberY","emailX"),
+      ("usernameY", "phone_numberY", "emailX"),
+      ("usernamea", "phone_numbera", "emaila")]
+
+def indices_sublist(data):
+
+    k = len(data[0])
+    new_data = [[] for i in range(k)]
+    for  d in data:
+        for ind,i in enumerate(range(k)):
+            new_data[ind].append(d[ind])
+    indices = []
+    for l in new_data:
+        if any(l.count(val) > 1 for val  in l):
+            for index,i in enumerate(l):
+                if index!=len(l)-1:
+                    for index_1,j in enumerate(l[index+1:]):
+                        if j==i:
+                            indices.append(index)
+                            indices.append(index_1+index+1)
+    x= list(set(indices))
+    y=[i for i in range(len(data)) if i not in x]
+    return [x,y]
+
+print(indices_sublist(data))
+
+
